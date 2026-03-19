@@ -20,12 +20,12 @@
     <div class="signup-login">
         <div class=" signup-box scr">
             <div class="heading">Get Things Done?</div>
-            <form method="post">
+            <form method="post" action="{% url 'todo' %}">
                 {% csrf_token %}
                 <input type="text" name="Title" required class="todo-input inp" placeholder="What is the task today?" value={{obj.title}}>
                 <input type="hidden" name="srno" value={{obj.srno}}>
                 
-                <input class="submit-button" type="submit" value="Update Task" href="{% url 'todo' %}">
+                <input class="submit-button" type="submit" value="Update Task">
 
             </form>
 

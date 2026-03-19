@@ -36,15 +36,17 @@ def signup_view(request):
     return render(request, 'signup.html')
 
 def todo_view(request):
+    
     if request.method == 'POST':
         title = request.POST.get("Title")
-        srno = request.POST.get("srno")
-        print(title,srno)
-        if srno == "":
-            obj = Todo(title=title)
-            obj.save()
+        if request.user.is_authenticated:
+            Todo.objects.create(
+                title=title, 
+                # srno=srno, # You can generate srno as needed, for example using an auto-increment field in the model
+                user=request.user  # Add this line to link the task to the user
+            )
+            return redirect('todo') # This keeps you on the same page
         else:
-            obj = Todo.objects.get(srno=srno)
-            obj.title = title
-            obj.save()
+            return redirect('login')
+
     return render(request, 'todo.html')
